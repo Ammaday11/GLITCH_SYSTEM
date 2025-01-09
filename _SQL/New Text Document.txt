@@ -1,0 +1,6 @@
+Change /Illuminate/Foundation/helpers.php/asset() function as follows:
+
+function asset($path, $secure = null)
+{
+    return app('url')->asset("public/".$path, $secure);
+}
