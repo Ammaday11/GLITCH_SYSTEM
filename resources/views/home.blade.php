@@ -149,6 +149,29 @@
                             <!-- end total views   -->
                             <!-- ============================================================== -->
                         </div>
+                        @if ($errors->any())
+                            @foreach ($errors->all() as $error)
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert">{{$error}}
+                                    <a href="#" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">×</span>
+                                    </a> 
+                                </div>
+                            @endforeach
+                        @endif
+                        @if (session()->has('error'))
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">{{session('error')}}
+                                <a href="#" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </a> 
+                            </div>
+                        @endif
+                        @if (session()->has('success'))
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">{{session('success')}}
+                                <a href="#" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </a> 
+                            </div>
+                        @endif
 
                         <!-- ============================================================== -->
                         <!-- data table  -->
@@ -187,7 +210,9 @@
                                                             <td>
                                                                 <a href="{{route('glitches.show', ['id' => $glitch->id])}}" class="btn btn-info btn-sm m-r-10 fas fa-eye"></a>
                                                                 <a href="{{route('glitches.edit', ['id' => $glitch->id])}}" class="btn btn-brand btn-sm m-r-10 fas fa-edit"></a>
-                                                                <a href="#" class="btn btn-danger btn-sm m-r-10 fas fa-trash"></a>
+                                                                @can('delete glitches')
+                                                                <a href="{{route('glitches.delete', ['id' => $glitch->id])}}" class="btn  btn-danger btn-sm m-r-10 fas fa-trash"></a>
+                                                                @endcan('delete glitches')
                                                             </td>
                                                         </tr>
                                                     @endforeach
@@ -237,6 +262,24 @@
         <script src="https://cdn.datatables.net/rowgroup/1.0.4/js/dataTables.rowGroup.min.js"></script>
         <script src="https://cdn.datatables.net/select/1.2.7/js/dataTables.select.min.js"></script>
         <script src="https://cdn.datatables.net/fixedheader/3.1.5/js/dataTables.fixedHeader.min.js"></script>
+
+        <script>
+            // Wait for the DOM to be fully loaded
+            document.addEventListener("DOMContentLoaded", function () {
+                // Select all alerts
+                const alerts = document.querySelectorAll('.alert');
+
+                // Set a timeout to fade out and remove the alert after 5 seconds
+                alerts.forEach(alert => {
+                    setTimeout(() => {
+                        alert.classList.remove('show'); // Remove the 'show' class
+                        alert.classList.add('fade');   // Optionally add 'fade' for smooth transition
+                        setTimeout(() => alert.remove(), 300); // Remove alert after transition (0.3s)
+                    }, 3000); // 3 seconds
+                });
+            });
+        </script>
+
     @endsection
 
 </body>

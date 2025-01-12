@@ -25,6 +25,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/Glitches/show-glitch/{id}', [App\Http\Controllers\GlitchesController::class, 'show'])->name('glitches.show');
     Route::get('/Glitches/edit-glitch/{id}', [App\Http\Controllers\GlitchesController::class, 'edit'])->name('glitches.edit');
     Route::put('/Glitches/update-glitch/{id}', [App\Http\Controllers\GlitchesController::class, 'update'])->name('glitches.update');
+    Route::get('/Glitches/delete-glitch/{id}', [App\Http\Controllers\GlitchesController::class, 'delete'])->name('glitches.delete');
+    Route::post('/Glitches/destroy-glitch/{id}', [App\Http\Controllers\GlitchesController::class, 'destroy'])->name('glitches.destroy');
     Route::get('/Glitches/reports', [App\Http\Controllers\GlitchesController::class, 'report'])->name('glitches.report');
     Route::get('/Glitches/get_reports', [App\Http\Controllers\GlitchesController::class, 'get_report'])->name('glitches.get_report');
 });
