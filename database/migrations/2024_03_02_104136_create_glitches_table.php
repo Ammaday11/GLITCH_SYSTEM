@@ -19,7 +19,7 @@ return new class extends Migration
             $table->enum('category', ['General request', 'Complaint', 'Issue']);
             $table->string('title');
             $table->text('description');
-            $table->enum('status', ['Pending', 'Ongoing', 'Resolved', 'Follow-up Pending', 'Suspended', 'Deleted'])->default('Pending');
+            $table->enum('status', ['Pending', 'Ongoing', 'Resolved', 'Follow-up Pending', 'Suspended'])->default('Pending');
             $table->unsignedBigInteger('updated_by')->nullable(); // Last updated by
             $table->timestamps();
         });

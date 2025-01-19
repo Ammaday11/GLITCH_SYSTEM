@@ -15,7 +15,7 @@
                         <div class="row">
                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                                 <div class="page-header">
-                                    <h3 class="mb-2">Glitch Details</h3>
+                                    <h3 class="mb-2">Edit Glitch</h3>
                                     <p class="pageheader-text"></p>
                                     <div class="page-breadcrumb">
                                         <nav aria-label="breadcrumb">
@@ -40,7 +40,7 @@
                         <!-- ============================================================== -->
                         <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12" style="margin: auto">
                             <div class="card">
-                                <h5 class="card-header">{{ $glitch->title }}</h5>
+                                <h5 class="card-header">{{ $glitch->title }} - Edit</h5>
                                 <div class="card-body">
                                     <form action="{{route('glitches.update', ['id' => $glitch->id])}}"  data-parsley-validate="" method='POST' enctype="multipart/form-data">
                                         @if ($errors->any())
@@ -101,12 +101,11 @@
                                         <div class="form-group">
                                             <label for="status">Status</label>
                                             <select name="status" id="status" class="form-control" required>
-                                                <option value="pending" {{ $glitch->status == 'pending' ? 'selected' : '' }}>Pending</option>
-                                                <option value="ongoing" {{ $glitch->status == 'ongoing' ? 'selected' : '' }}>Ongoing</option>
-                                                <option value="resolved" {{ $glitch->status == 'resolved' ? 'selected' : '' }}>Resolved</option>
-                                                <option value="follow-up pending" {{ $glitch->status == 'follow-up pending' ? 'selected' : '' }}>Follow-Up Pending</option>
-                                                <option value="suspended" {{ $glitch->status == 'suspended' ? 'selected' : '' }}>Suspended</option>
-                                                <option value="deleted" {{ $glitch->status == 'deleted' ? 'selected' : '' }}>Deleted</option>
+                                                <option value="pending" {{ $glitch->status == 'Pending' ? 'selected' : '' }}>Pending</option>
+                                                <option value="ongoing" {{ $glitch->status == 'Ongoing' ? 'selected' : '' }}>Ongoing</option>
+                                                <option value="resolved" {{ $glitch->status == 'Resolved' ? 'selected' : '' }}>Resolved</option>
+                                                <option value="follow-up pending" {{ $glitch->status == 'Follow-up Pending' ? 'selected' : '' }}>Follow-Up Pending</option>
+                                                <option value="suspended" {{ $glitch->status == 'Suspended' ? 'selected' : '' }}>Suspended</option>
                                             </select>
                                         </div>
                                         
@@ -116,7 +115,7 @@
                                             </div>
                                             <div class="col-sm-6 pl-0">
                                                 <p class="text-right">
-                                                    <button type="submit" class="btn btn-space btn-info">Update</button>
+                                                    <button type="submit" class="btn btn-space btn-success">Update</button>
                                                     <a href="{{route('home')}}" class="btn btn-space btn-secondary">Cancel</a>
                                                 </p>
                                             </div>

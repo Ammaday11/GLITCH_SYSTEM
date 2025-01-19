@@ -4,8 +4,10 @@
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
+        
         <div class="collapse navbar-collapse " id="navbarSupportedContent">
-            <ul class="navbar-nav ml-auto navbar-right-top">
+            <h3 class="text-center m-auto">{{ now()->format('d - M - Y') }}</h3>
+            <ul class="navbar-nav mr-0 navbar-right-top">
                 <!-- <li class="nav-item">
                     <div id="custom-search" class="top-search-bar">
                         <input class="form-control" type="text" placeholder="Search..">
@@ -100,7 +102,7 @@ John Abraham</span>is now following you
                                 <h5 class="mb-0 text-white nav-user-name">{{ auth()->user()->name }}</h5>
                             </div>
                             
-                            <a class="dropdown-item" href="#"><i class="fas fa-key mr-2"></i>Change Password</a>
+                            <a class="dropdown-item" href="{{route('user.get_change_password')}}"><i class="fas fa-key mr-2"></i>Change Password</a>
                             <a class="dropdown-item" href="{{route('user.logout')}}"><i class="fas fa-power-off mr-2"></i>Logout</a>
                         
                     @else    

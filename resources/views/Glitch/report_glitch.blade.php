@@ -9,20 +9,22 @@
 
 @section('content')
 <body> 
-        <!-- ============================================================== -->
-        <!-- wrapper  -->
-        <!-- ============================================================== -->
-        
-        <div class="dashboard-wrapper">
+       <div class="dashboard-wrapper">
             <div class="container-fluid dashboard-content">
                 <div class="row">
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                         <!-- ============================================================== -->
                         <!-- Start Content  -->
                         <!-- ============================================================== -->
-
-                        <h2 class="text-center">Glitch - Reports</h2>
-                        
+                        <div class="row">
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                <div class="page-header">
+                                    <h3 class="mb-2">Reports</h3>
+                                    <p class="pageheader-text"></p>
+                                    
+                                </div>
+                            </div>
+                        </div>
 
                         <!-- ============================================================== -->
                         <!-- data table  -->
@@ -48,7 +50,7 @@
                                         
 
                                         <label class="ml-4" for="status">Status:</label>
-                                        <select style="width:10%;display: inline-block;" name="status" id="status" class="form-control">
+                                            <select style="width:10%;display: inline-block;" name="status" id="status" class="form-control">
                                                 <option value="">All</option>
                                                 <option value="pending" {{ request('status') == 'pending' ? 'selected' : '' }}>Pending</option>
                                                 <option value="ongoing" {{ request('status') == 'ongoing' ? 'selected' : '' }}>Ongoing</option>

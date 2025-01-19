@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 //use Illuminate\Support\Facades\Auth;
 use Auth;
 use App\Models\{
     User,
     Glitch,
+    Guest,
 };
 
 
@@ -19,8 +21,13 @@ class GlitchesController extends Controller
     public function index()
     {
         $glitches = Glitch::whereDate('created_at', now()->toDateString())->with('user')->get();
-
         return view('home', compact('glitches'));
+    }
+
+    public function all_glitches()
+    {
+        $glitches = $glitches = Glitch::with('user')->get();
+        return view('Glitch.list_glitch', compact('glitches'));
     }
 
     /**
@@ -44,16 +51,21 @@ class GlitchesController extends Controller
         }
         $validated = $request->validate([
             'room_no' => 'required|string',
-            'guest_name' => 'string',
             'category' => 'required|in:general request,complaint,issue',
             'title' => 'required|string',
             'description' => 'required|string',
         ]);
 
+        $guest = Guest::where('room_No', $validated['room_no'])->first();
+        if($guest){
+            $guestName = $guest->guest_name;
+        }else{
+            $guestName = "TBA";
+        }
         $newGlitch = Glitch::create([
             'user_id' => Auth::id(),
             'room_no' => $validated['room_no'],
-            'guest_name' => $validated['guest_name'],
+            'guest_name' => $guestName,
             'category' => $validated['category'],
             'title' => $validated['title'],
             'description' => $validated['description'],
@@ -116,6 +128,28 @@ class GlitchesController extends Controller
 
         return redirect()->route('home')->with('success', 'Glitch updated successfully.');
     }
+
+    public function update_status(Request $request, $id)
+    {
+        if(!Auth::user()->can('modify_glitch')) {
+            return redirect()->route('home')->with('error', 'You are not authorized to modify glitches.');
+        }
+        // Validate the request
+        $request->validate([
+            'status' => 'required|string|in:Pending,Ongoing,Resolved,Follow-up Pending,Suspended',
+        ]);
+
+        // Find the glitch by ID
+        $glitch = Glitch::findOrFail($id);
+
+        // Update the status
+        $glitch->status = $request->input('status');
+        $glitch->save();
+
+        // Redirect back with a success message
+        return redirect()->back()->with('success', 'Glitch status updated successfully.');
+    }
+
     public function delete(string $id)
     {
         if(!Auth::user()->can('delete_glitch')) {
@@ -162,7 +196,10 @@ class GlitchesController extends Controller
             'status' => 'nullable|string',
         ]);
 
-        $query = Glitch::whereBetween('created_at', [$validated['start_date'], $validated['end_date']]);
+        $start_date = Carbon::parse($validated['start_date'])->startOfDay();
+        $end_date = Carbon::parse($validated['end_date'])->endOfDay();
+
+        $query = Glitch::whereBetween('created_at', [$start_date, $end_date]);
 
         if ($request->category) {
             $query->where('category', $validated['category']);

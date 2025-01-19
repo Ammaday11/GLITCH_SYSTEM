@@ -5,6 +5,18 @@
 <link rel="stylesheet" href="{{asset('assets/vendor/datatables/css/buttons.bootstrap4.css')}}">
 <link rel="stylesheet" href="{{asset('assets/vendor/datatables/css/select.bootstrap4.css')}}">
 <link rel="stylesheet" href="{{asset('assets/vendor/datatables/css/fixedHeader.bootstrap4.css')}}">
+<style>
+    .custom-select {
+        -webkit-appearance: none; /* Remove default arrow in Chrome/Safari */
+        -moz-appearance: none; /* Remove default arrow in Firefox */
+        appearance: none; /* Remove default arrow in modern browsers */
+        background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 4 5"%3E%3Cpath fill="%23000000" d="M2 0L0 2h4zm0 5L0 3h4z"/%3E%3C/svg%3E');
+        background-repeat: no-repeat;
+        background-position: right 0.75rem center;
+        background-size: 0.65em auto;
+        padding-right: 2.5rem; /* Add space for the dropdown icon */
+    }
+</style>
 @endsection
 
 @section('content')
@@ -21,7 +33,7 @@
                         <!-- Start Content  -->
                         <!-- ============================================================== -->
 
-                        <h1 class="text-center">{{ now()->format('d - M - Y') }}</h1>
+                        <!-- <h1 class="text-center">{{ now()->format('d - M - Y') }}</h1> -->
                         <div class="row">
                             <!-- ============================================================== -->
                             <!-- total followers   -->
@@ -76,8 +88,66 @@
                                                 {{$count}}
                                             </h2>
                                         </div>
-                                        <div class="float-right icon-circle-medium  icon-box-lg  bg-secondary-light mt-1">
-                                            <i class=" fa fa-exclamation-triangle fa-fw fa-sm text-secondary"></i>
+                                        <div class="float-right icon-circle-medium  icon-box-lg  bg-primary-light mt-1">
+                                            <i class=" fa fa-exclamation-triangle fa-fw fa-sm text-primary"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="d-inline-block">
+                                            <h5 class="text-muted">Follow-up Pending</h5>
+                                            <h2 class="mb-0">
+                                                @php
+                                                    $count = 0; // Initialize the count variable
+                                                @endphp
+                                                @foreach ($glitches as $glitch)
+                                                    @if($glitch->status == 'Follow-up Pending')
+                                                        @php
+                                                            $count++;
+                                                        @endphp
+                                                    @endif
+                                                @endforeach
+                                                {{$count}}
+                                            </h2>
+                                        </div>
+                                        <!-- <div class="float-right icon-circle-medium  icon-box-lg  bg-warning-light mt-1">
+                                            <i class="fas fa-calendar-check fa-fw fa-sm text-warning"></i>
+                                        </div> -->
+                                        <div class="float-right icon-circle-medium  icon-box-lg  bg-info-light mt-1">
+                                            <i class=" fa fa-calendar-check fa-fw fa-sm text-dark"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="d-inline-block">
+                                            <h5 class="text-muted">Suspended</h5>
+                                            <h2 class="mb-0">
+                                                @php
+                                                    $count = 0; // Initialize the count variable
+                                                @endphp
+                                                @foreach ($glitches as $glitch)
+                                                    @if($glitch->status == 'Suspended')
+                                                        @php
+                                                            $count++;
+                                                        @endphp
+                                                    @endif
+                                                @endforeach
+                                                {{$count}}
+                                            </h2>
+                                        </div>
+                                        <!-- <div class="float-right icon-circle-medium  icon-box-lg  bg-warning-light mt-1">
+                                            <i class="fas fa-calendar-check fa-fw fa-sm text-warning"></i>
+                                        </div> -->
+                                        <div class="float-right icon-circle-medium  icon-box-lg  bg-danger-light mt-1">
+                                            <i class="far fa-pause-circle fa-fw fa-sm text-danger"></i>
                                         </div>
                                     </div>
                                 </div>
@@ -136,8 +206,6 @@
                                                 @endforeach
                                                 {{$count}}
                                             </h2>
-                                            <!-- <h5 class="text-muted">Total Covers</h5>
-                                            <h2 class="mb-0">12</h2>                                             -->
                                         </div>
                                         <div class="float-right icon-circle-medium  icon-box-lg  bg-info-light mt-1">
                                             <i class="fa fa-eye fa-fw fa-sm text-info"></i>
@@ -181,38 +249,57 @@
                                 <div class="card">
                                     <div class="card-header">
                                         <a href="{{route('glitches.create')}}" class="btn btn-info">New Glitch</a>
+                                        
+                                        <a href="{{route('guest.upload')}}" class="btn ml-3 btn-info">Update Guest List</a>
                                     </div>
                                     <div class="card-body">
                                         <div class="table-responsive">
                                             <table id="example" class="table table-striped table-bordered second" style="width:100%">
                                                 <thead>
                                                     <tr>
+                                                        <th>ID</th>
                                                         <th>Room No</th>
                                                         <th>Guest Name</th>
                                                         <th>Category</th>
                                                         <th>Title</th>
-                                                        <th>Status</th>
+                                                        <!-- <th>Status</th> -->
                                                         <th>Received By</th>
                                                         <th>Received At</th>
+                                                        <th>Update Status</th>
                                                         <th>Actions</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    @foreach ($glitches as $glitch)
+                                                    @foreach ($glitches->filter(fn($glitch) => $glitch->status !== 'Resolved') as $glitch)
                                                         <tr>
+                                                            <td>{{ $glitch->id }}</td>
                                                             <td>{{ $glitch->room_no }}</td>
                                                             <td>{{ $glitch->guest_name }}</td>
                                                             <td>{{ $glitch->category }}</td>
                                                             <td>{{ $glitch->title }}</td>
-                                                            <td>{{ $glitch->status }}</td>
-                                                            <td>{{ $glitch->user_id }}</td>
+                                                            <!-- <td>{{ $glitch->status }}</td> -->
+                                                            <td>{{ $glitch->user->name }}</td>
                                                             <td>{{ $glitch->created_at->format('H:i') }}</td>
+                                                            <td>
+                                                            <form action="{{ route('glitches.update_status', ['id' => $glitch->id]) }}" method="POST">
+                                                                @csrf
+                                                                @method('PATCH')
+                                                                <select name="status" class="form-control custom-select" onchange="this.form.submit()">
+                                                                <!-- <select name="status" class="form-control custom-select" onchange="updateStatus(this)"> -->
+                                                                    <option value="Pending" {{ $glitch->status === 'Pending' ? 'selected' : '' }}>Pending</option>
+                                                                    <option value="Ongoing" {{ $glitch->status === 'Ongoing' ? 'selected' : '' }}>Ongoing</option>
+                                                                    <option value="Follow-up Pending" {{ $glitch->status === 'Follow-up Pending' ? 'selected' : '' }}>Follow-up Pending</option>
+                                                                    <option value="Resolved" {{ $glitch->status === 'Resolved' ? 'selected' : '' }}>Resolved</option>
+                                                                    <option value="Suspended" {{ $glitch->status === 'Suspended' ? 'selected' : '' }}>Suspended</option>
+                                                                </select>
+                                                            </form>
+                                                            </td>
                                                             <td>
                                                                 <a href="{{route('glitches.show', ['id' => $glitch->id])}}" class="btn btn-info btn-sm m-r-10 fas fa-eye"></a>
                                                                 <a href="{{route('glitches.edit', ['id' => $glitch->id])}}" class="btn btn-brand btn-sm m-r-10 fas fa-edit"></a>
-                                                                @can('delete glitches')
+                                                                @can('delete_glitch')
                                                                 <a href="{{route('glitches.delete', ['id' => $glitch->id])}}" class="btn  btn-danger btn-sm m-r-10 fas fa-trash"></a>
-                                                                @endcan('delete glitches')
+                                                                @endcan('delete_glitch')
                                                             </td>
                                                         </tr>
                                                     @endforeach
@@ -234,10 +321,6 @@
                     </div>
                 </div>
             </div>
-
-
-
-
             
             <!-- ============================================================== -->
             <!-- footer -->
@@ -249,10 +332,10 @@
         </div>
     @section('script')
         <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-        <script src="../resources/assets/assets/vendor/datatables/js/dataTables.bootstrap4.min.js"></script>
+        <script src="{{asset('assets/vendor/datatables/js/dataTables.bootstrap4.min.js')}}"></script>
         <script src="https://cdn.datatables.net/buttons/1.5.2/js/dataTables.buttons.min.js"></script>
-        <script src="../resources/assets/assets/vendor/datatables/js/buttons.bootstrap4.min.js"></script>
-        <script src="../resources/assets/assets/vendor/datatables/js/data-table.js"></script>
+        <script src="{{asset('assets/vendor/datatables/js/buttons.bootstrap4.min.js')}}"></script>
+        <script src="{{asset('assets/vendor/datatables/js/data-table.js')}}"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
@@ -278,33 +361,10 @@
                     }, 3000); // 3 seconds
                 });
             });
+
         </script>
 
     @endsection
 
 </body>
 @endsection
-
-{{-- @extends('layouts.app')
-
-@section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Dashboard') }}</div>
-
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-
-                    {{ __('You are logged in!') }}
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-@endsection --}}

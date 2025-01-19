@@ -24,7 +24,7 @@ class PermissionsSeeder extends Seeder
 
             if($role->name == 'Administrator') {
                 // assign all permissions for the administrator
-                $role->syncPermissions(Permission::whereNotIn('name', ['delete_glitch'])->get());
+                $role->syncPermissions(Permission::all());
                 $this->command->info('Administrator granted all the permissions');
             }
 
@@ -38,6 +38,7 @@ class PermissionsSeeder extends Seeder
                     'create_glitch',
                     'modify_glitch',
                     'view_glitch',
+                    'update_guestlist',
                 ]);
             }
 
@@ -68,6 +69,7 @@ class PermissionsSeeder extends Seeder
         'manage_users',
         'view_roles',
         'manage_roles',
+        'update_guestlist',
         'view_reports',
         'create_glitch',
         'modify_glitch',
@@ -80,9 +82,7 @@ class PermissionsSeeder extends Seeder
         [
             'bwlmNo' => 'BWLM0156',
             'roles' => [
-                'Administrator',
-                'Manager',
-                'Staff'
+                'Administrator'
             ]
         ],
         [

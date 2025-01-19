@@ -36,7 +36,7 @@
         <div class="card ">
             <div class="card-header text-center">
                 <a href="#"><img class="logo-img" src="{{asset('images/bwlm_logo.png')}}" alt="logo"></a>
-                <span class="splash-description mt-4">Please enter your user information.</span>
+                <span class="splash-description mt-4">Please enter your login information.</span>
                 @if ($errors->any())
                     @foreach ($errors->all() as $error)
                         <div class="alert alert-danger alert-dismissible fade show" role="alert">{{$error}}
@@ -71,20 +71,12 @@
                     <div class="form-group">
                         <input class="form-control form-control-lg" name="password" id="password" type="password" placeholder="Password">
                     </div>
-                    <div class="form-group">
-                        <label class="custom-control custom-checkbox">
-                            <input class="custom-control-input" type="checkbox"><span class="custom-control-label">Remember Me</span>
-                        </label>
-                    </div>
+                    
                     <button type="submit" class="btn btn-primary btn-lg btn-block">Sign in</button>
                 </form>
             </div>
             <div class="card-footer bg-white p-0  ">
-                <div class="card-footer-item card-footer-item-bordered">
-                    <a href="{{ route('user.create') }}" class="footer-link">Create An Account</a></div>
-                {{-- <div class="card-footer-item card-footer-item-bordered">
-                    <a href="#" class="footer-link">Forgot Password</a>
-                </div> --}}
+            
             </div>
         </div>
     </div>
@@ -95,5 +87,22 @@
     <!-- Optional JavaScript -->
     <script src="../resources/assets/assets/vendor/jquery/jquery-3.3.1.min.js"></script>
     <script src="../resources/assets/assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>
+    <script>
+        // Wait for the DOM to be fully loaded
+        document.addEventListener("DOMContentLoaded", function () {
+            // Select all alerts
+            const alerts = document.querySelectorAll('.alert');
+
+            // Set a timeout to fade out and remove the alert after 5 seconds
+            alerts.forEach(alert => {
+                setTimeout(() => {
+                    alert.classList.remove('show'); // Remove the 'show' class
+                    alert.classList.add('fade');   // Optionally add 'fade' for smooth transition
+                    setTimeout(() => alert.remove(), 300); // Remove alert after transition (0.3s)
+                }, 3000); // 3 seconds
+            });
+        });
+
+    </script>
 </body>
 </html>

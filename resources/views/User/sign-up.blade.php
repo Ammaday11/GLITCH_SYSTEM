@@ -84,13 +84,12 @@
                     <div class="form-group">
                         <input class="form-control form-control-lg" required="" name="password_confirmation" data-parsley-equalto="#password"  placeholder="Confirm Password" type="password" >
                     </div>
+                    
                     <div class="form-group pt-2">
-                        <button class="btn btn-block btn-primary" type="submit">Register My Account</button>
+                        <button class="btn btn-block btn-primary" type="submit">Register User</button>
                     </div>
                 </div>
-            <div class="card-footer bg-white">
-                <p>Already member? <a href="{{ route('user.get_login') }}" class="text-secondary">Login Here.</a></p>
-            </div>
+           
         </div>
     </form>
 

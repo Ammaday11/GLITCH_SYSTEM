@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\{
     Glitch,
     User,
+    Guest,
 };
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -48,6 +49,7 @@ class DatabaseSeeder extends Seeder
         //$holiday = Holiday::factory(5)->create();
         $this->call([
             PermissionsSeeder::class,
+            GuestsSeeder::Class,
         ]);
     }
 }
