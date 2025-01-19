@@ -20,12 +20,18 @@ class GlitchesController extends Controller
      */
     public function index()
     {
+        if(!Auth::user()->can('view_glitch_list')) {
+            return redirect()->route('home')->with('error', 'You are not authorized to view this page.');
+        }
         $glitches = Glitch::whereDate('created_at', now()->toDateString())->with('user')->get();
         return view('home', compact('glitches'));
     }
 
     public function all_glitches()
     {
+        if(!Auth::user()->can('view_glitch_list')) {
+            return redirect()->route('home')->with('error', 'You are not authorized to view this page.');
+        }
         $glitches = $glitches = Glitch::with('user')->get();
         return view('Glitch.list_glitch', compact('glitches'));
     }
@@ -36,7 +42,7 @@ class GlitchesController extends Controller
     public function create()
     {
         if(!Auth::user()->can('create_glitch')) {
-            return redirect()->route('home')->with('error', 'You are not authorized to create glitches.');
+            return redirect()->route('home')->with('error', 'You are not authorized to create new glitches.');
         }
         return view('Glitch.create_glitch');
     }
@@ -47,7 +53,7 @@ class GlitchesController extends Controller
     public function store(Request $request)
     {
         if(!Auth::user()->can('create_glitch')) {
-            return redirect()->route('home')->with('error', 'You are not authorized to create glitches.');
+            return redirect()->route('home')->with('error', 'You are not authorized to create new glitches.');
         }
         $validated = $request->validate([
             'room_no' => 'required|string',

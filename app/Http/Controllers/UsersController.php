@@ -45,19 +45,6 @@ class UsersController extends Controller
 
     public function store(Request $request)
     {
-        // dd($data);
-        // $this->validator($data->all())->validate();
-
-        // $user = User::create([
-        //     'bwlmNo' => $data['bwlmNo'],
-        //     'name' => $data['name'],
-        //     'password' => Hash::make($data['password']),
-        // ]);
-        // if(!$user){
-        //     return redirect()->route('user.create')->with('error', 'Registration failed, try again!');
-        // }
-        // return redirect()->route('user.get_login')->with('success', 'User created successfully!');
-
         if(!Auth::user()->can('manage_users')) {
             return redirect()->route('home')->with('error', 'You are not authorized to create users.');
         }
@@ -181,12 +168,18 @@ class UsersController extends Controller
 
     public function get_change_password()
     {
+        if(!Auth::user()->can('change_password')) {
+            return redirect()->route('user.list')->with('error', 'You are not authorized to modify users.');
+        }
         $user = Auth::user();
         return view('User.change-password', compact('user'));
     }
 
     public function change_password(Request $request, string $id)
     {
+        if(!Auth::user()->can('change_password')) {
+            return redirect()->route('user.list')->with('error', 'You are not authorized to modify users.');
+        }
         $validated = $request->validate([
             'current_password' => ['required', 'string', 'min:8'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],

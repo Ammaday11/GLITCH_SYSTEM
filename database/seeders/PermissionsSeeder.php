@@ -38,7 +38,9 @@ class PermissionsSeeder extends Seeder
                     'create_glitch',
                     'modify_glitch',
                     'view_glitch',
+                    'view_glitch_list',
                     'update_guestlist',
+                    'change_password',
                 ]);
             }
 
@@ -67,6 +69,7 @@ class PermissionsSeeder extends Seeder
     protected $permissions = [
         'view_users',
         'manage_users',
+        'change_password',
         'view_roles',
         'manage_roles',
         'update_guestlist',
@@ -75,6 +78,7 @@ class PermissionsSeeder extends Seeder
         'modify_glitch',
         'suspend_glitch',
         'view_glitch',
+        'view_glitch_list',
         'delete_glitch'
     ];
 
