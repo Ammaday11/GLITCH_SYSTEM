@@ -8,10 +8,10 @@
     <title>GLITCH - Register</title>
     <link rel="icon" type="image/x-icon" href="https://logosbynick.com/wp-content/uploads/2018/05/vector-glitch-effect-inkscape-tutorial-1024x602.jpg">
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="../resources/assets/assets/vendor/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../resources/assets/assets/vendor/fonts/circular-std/style.css">
-    <link rel="stylesheet" href="../resources/assets/assets/libs/css/style.css">
-    <link rel="stylesheet" href="../resources/assets/assets/vendor/fonts/fontawesome/css/fontawesome-all.css">
+    <link rel="stylesheet" href="{{asset('assets/vendor/bootstrap/css/bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/vendor/fonts/circular-std/style.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/libs/css/style.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/vendor/fonts/fontawesome/css/fontawesome-all.css')}}">
     <style>
     html,
     body {
@@ -45,29 +45,7 @@
             <div class="card-header">
                 <a href="#"><img class="logo-img" src="{{asset('images/bwlm_logo.png')}}" alt="logo"></a>
                 <p class="mt-4">Please enter your user information.</p>
-                @if ($errors->any())
-                    @foreach ($errors->all() as $error)
-                        <div class="alert alert-danger alert-dismissible fade show" role="alert">{{$error}}
-                            <a href="#" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">×</span>
-                            </a> 
-                        </div>
-                    @endforeach
-                @endif
-                @if (session()->has('error'))
-                    <div class="alert alert-danger alert-dismissible fade show" role="alert">{{session('error')}}
-                        <a href="#" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">×</span>
-                        </a> 
-                    </div>
-                @endif
-                @if (session()->has('success'))
-                    <div class="alert alert-success alert-dismissible fade show" role="alert">{{session('success')}}
-                        <a href="#" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">×</span>
-                        </a> 
-                    </div>
-                @endif
+                @include('include.messages')
             </div>
             
                 @csrf
@@ -93,9 +71,9 @@
         </div>
     </form>
 
-    <script src="../resources/assets/assets/vendor/jquery/jquery-3.3.1.min.js"></script>
-    <script src="../resources/assets/assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>
-    <script src="../resources/assets/assets/libs/js/main-js.js"></script>
+    <script src="{{asset('assets/vendor/jquery/jquery-3.3.1.min.js')}}"></script>
+    <script src="{{asset('assets/vendor/bootstrap/js/bootstrap.bundle.js')}}"></script>
+    <script src="{{asset('assets/libs/js/main-js.js')}}"></script>
 </body>
 
  

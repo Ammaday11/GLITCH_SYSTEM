@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('guest_name')->nullable();
             $table->enum('category', ['General request', 'Complaint', 'Issue']);
             $table->string('title');
-            $table->text('description');
+            $table->text('description')->nullable();
             $table->enum('status', ['Pending', 'Ongoing', 'Resolved', 'Follow-up Pending', 'Suspended'])->default('Pending');
             $table->unsignedBigInteger('updated_by')->nullable(); // Last updated by
             $table->timestamps();

@@ -59,7 +59,7 @@ class GlitchesController extends Controller
             'room_no' => 'required|string',
             'category' => 'required|in:general request,complaint,issue',
             'title' => 'required|string',
-            'description' => 'required|string',
+            'description' => 'nullable|string',
         ]);
 
         $guest = Guest::where('room_No', $validated['room_no'])->first();

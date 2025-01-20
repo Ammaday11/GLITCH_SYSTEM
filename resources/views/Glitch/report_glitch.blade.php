@@ -57,7 +57,6 @@
                                                 <option value="resolved" {{ request('status') == 'resolved' ? 'selected' : '' }}>Resolved</option>
                                                 <option value="follow-up pending" {{ request('status') == 'follow-up pending' ? 'selected' : '' }}>Follow-up Pending</option>
                                                 <option value="suspended" {{ request('status') == 'suspended' ? 'selected' : '' }}>Suspended</option>
-                                                <option value="deleted" {{ request('status') == 'deleted' ? 'selected' : '' }}>Deleted</option>
                                             </select>
 
                                         <button class="btn btn-space btn-info ml-4" type="submit">Generate Report</button>
@@ -132,10 +131,10 @@
         </div>
     @section('script')
         <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-        <script src="../resources/assets/assets/vendor/datatables/js/dataTables.bootstrap4.min.js"></script>
+        <script src="{{asset('assets/vendor/datatables/js/dataTables.bootstrap4.min.js')}}"></script>
         <script src="https://cdn.datatables.net/buttons/1.5.2/js/dataTables.buttons.min.js"></script>
-        <script src="../resources/assets/assets/vendor/datatables/js/buttons.bootstrap4.min.js"></script>
-        <script src="../resources/assets/assets/vendor/datatables/js/data-table.js"></script>
+        <script src="{{asset('assets/vendor/datatables/js/buttons.bootstrap4.min.js')}}"></script>
+        <script src="{{asset('assets/vendor/datatables/js/data-table.js')}}"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
@@ -149,27 +148,3 @@
 
 </body>
 @endsection
-
-{{-- @extends('layouts.app')
-
-@section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Dashboard') }}</div>
-
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-
-                    {{ __('You are logged in!') }}
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-@endsection --}}
