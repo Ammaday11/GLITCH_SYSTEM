@@ -79,12 +79,17 @@
 
                                         <div class="form-group">
                                             <label for="user_id">Received By</label>
-                                            <input type="text" name="user_id" id="user_id" class="form-control" value="{{ $glitch->user->name }} @ {{ $glitch->created_at->format('H:i') }}" required readonly>
+                                            <input type="text" name="user_id" id="user_id" class="form-control" value="{{ $glitch->user->name }} @ {{ $glitch->created_at }}" required readonly>
                                         </div>
 
                                         <div class="form-group">
                                             <label for="updated_by">Updated By</label>
-                                            <input type="text" name="updated_by" id="updated_by" class="form-control" value="{{ $glitch->updatedBy->name }} @ {{ $glitch->updated_at->format('H:i') }}" required readonly>
+                                            <input type="text" name="updated_by" id="updated_by" class="form-control" value="{{ $glitch->updatedBy->name }} @ {{ $glitch->updated_at }}" required readonly>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="follow_up">Follow-up By</label>
+                                            <input type="text" name="follow_up" id="follow_up" class="form-control" value="{{ $glitch->follow_up_by ? $glitch->follow_up_by . ' @ ' . $glitch->follow_up_at : '' }}" required readonly>
                                         </div>
                                         
                                         <div class="row">

@@ -6,8 +6,8 @@
         </button>
         
         <div class="collapse navbar-collapse " id="navbarSupportedContent">
-            <h3 class="text-center m-auto">{{ now()->format('d - M - Y') }}</h3>
-            <ul class="navbar-nav mr-0 navbar-right-top">
+            <!-- <h3 class="text-center m-auto">{{ now()->format('d - M - Y') }}</h3> -->
+            <ul class="navbar-nav  ml-auto navbar-right-top">
                 <!-- <li class="nav-item">
                     <div id="custom-search" class="top-search-bar">
                         <input class="form-control" type="text" placeholder="Search..">

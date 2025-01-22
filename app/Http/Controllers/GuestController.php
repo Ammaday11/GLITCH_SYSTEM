@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use Webklex\PHPIMAP\ClientManager;
 
 use Illuminate\Http\Request;
 use Auth;
@@ -9,9 +10,19 @@ use App\Models\{
     Glitch,
     Guest,
 };
+use App\Jobs\UpdateGuestList;
 
 class GuestController extends Controller
 {
+
+    public function updateGuestList()
+    {
+
+        dd(dispatch(new UpdateGuestList()));
+        dispatch(new UpdateGuestList());
+
+        return back()->with('success', 'Guest list updated successfully!');
+    }
     public function upload()
     {
         if(!Auth::user()->can('update_guestlist')) {

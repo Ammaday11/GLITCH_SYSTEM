@@ -227,11 +227,12 @@
                                     <div class="card-header">
                                         <a href="{{route('glitches.create')}}" class="btn btn-info">New Glitch</a>
                                         
-                                        <a href="{{route('guest.upload')}}" class="btn ml-3 btn-info">Update Guest List</a>
+                                        <a href="{{route('update-guest-names')}}" class="btn ml-3 btn-info">Update Guest List</a>
+                                        
                                     </div>
                                     <div class="card-body">
                                         <div class="table-responsive">
-                                            <table id="example" class="table table-striped table-bordered second" style="width:100%">
+                                            <table id="example" data-order='[[ 0, "desc" ]]' class="table table-striped table-bordered second" style="width:100%">
                                                 <thead>
                                                     <tr>
                                                         <th>ID</th>
@@ -243,6 +244,7 @@
                                                         <th>Received By</th>
                                                         <th>Received At</th>
                                                         <th>Update Status</th>
+                                                        <th>Follow-up By</th>
                                                         <th>Actions</th>
                                                     </tr>
                                                 </thead>
@@ -268,6 +270,24 @@
                                                                     <option value="Follow-up Pending" {{ $glitch->status === 'Follow-up Pending' ? 'selected' : '' }}>Follow-up Pending</option>
                                                                     <option value="Resolved" {{ $glitch->status === 'Resolved' ? 'selected' : '' }}>Resolved</option>
                                                                     <option value="Suspended" {{ $glitch->status === 'Suspended' ? 'selected' : '' }}>Suspended</option>
+                                                                </select>
+                                                            </form>
+                                                            </td>
+                                                            <td>
+                                                            <form action="{{ route('glitches.follow_up_by', ['id' => $glitch->id]) }}', ['id' => $glitch->id]) }}" method="POST">
+                                                                @csrf
+                                                                @method('PATCH')
+                                                                <select name="follow_up_by" class="form-control custom-select" onchange="this.form.submit()">
+                                                                <!-- <select name="status" class="form-control custom-select" onchange="updateStatus(this)"> -->
+                                                                    <option value="" {{ $glitch->follow_up_by === '' ? 'selected' : '' }}>Select</option>
+                                                                    <option value="Adam" {{ $glitch->follow_up_by === 'Adam' ? 'selected' : '' }}>Adam</option>
+                                                                    <option value="Hawwa" {{ $glitch->follow_up_by === 'Hawwa' ? 'selected' : '' }}>Hawwa</option>
+                                                                    <option value="Juan" {{ $glitch->follow_up_by === 'Juan' ? 'selected' : '' }}>Juan</option>
+                                                                    <option value="KB" {{ $glitch->follow_up_by === 'KB' ? 'selected' : '' }}>KB</option>
+                                                                    <option value="Saaid" {{ $glitch->follow_up_by === 'Saaid' ? 'selected' : '' }}>Saaid</option>
+                                                                    <option value="Asel" {{ $glitch->follow_up_by === 'Asel' ? 'selected' : '' }}>Asel</option>
+                                                                    <option value="Azeeza" {{ $glitch->follow_up_by === 'Azeeza' ? 'selected' : '' }}>Azeeza</option>
+                                                                    <option value="Zarena" {{ $glitch->follow_up_by === 'Zarena' ? 'selected' : '' }}>Zarena</option>
                                                                 </select>
                                                             </form>
                                                             </td>

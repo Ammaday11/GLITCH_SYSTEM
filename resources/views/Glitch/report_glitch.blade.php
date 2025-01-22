@@ -21,7 +21,14 @@
                                 <div class="page-header">
                                     <h3 class="mb-2">Reports</h3>
                                     <p class="pageheader-text"></p>
-                                    
+                                    <div class="page-breadcrumb">
+                                        <nav aria-label="breadcrumb">
+                                            <ol class="breadcrumb">
+                                                <li class="breadcrumb-item"><a href="#" class="breadcrumb-link">Reports</a></li>
+                                                <li class="breadcrumb-item active" aria-current="page">General Report</li>
+                                            </ol>
+                                        </nav>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -69,6 +76,8 @@
                                                     <tr>
                                                         <th>Room No</th>
                                                         <th>Guest Name</th>
+                                                        <th>Arrival Date</th>
+                                                        <th>Departure Date</th>
                                                         <th>Category</th>
                                                         <th>Title</th>
                                                         <th>Description</th>
@@ -84,6 +93,8 @@
                                                     <tr>
                                                         <td>{{ $glitch->room_no }}</td>
                                                         <td>{{ $glitch->guest_name }}</td>
+                                                        <td>{{ $glitch->arrival_date }}</td>
+                                                        <td>{{ $glitch->departure_date }}</td>
                                                         <td>{{ $glitch->category }}</td>
                                                         <td>{{ $glitch->title }}</td>
                                                         <td>{{ $glitch->description }}</td>

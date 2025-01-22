@@ -25,6 +25,10 @@ class Glitch extends Model
         'description',
         'status',
         'updated_by',
+        'arrival_date',
+        'departure_date',
+        'follow_up_by',
+        'follow_up_at',
     ];
 
     public function user(){

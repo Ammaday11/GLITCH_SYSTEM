@@ -16,8 +16,21 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('glitches.all_glitches')}}"  aria-expanded="false" data-target="#submenu-1" aria-controls="submenu-1"><i class="fas fa-fw  fa-braille"></i>Glitches</a>
                     </li>
-                    <li class="nav-item">
+                    <!-- <li class="nav-item">
                         <a class="nav-link" href="{{route('glitches.get_report')}}"  aria-expanded="false" data-target="#submenu-1" aria-controls="submenu-1"><i class="fab fa-fw fa-wpforms"></i>Reports</a>
+                    </li> -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html" data-toggle="collapse" aria-expanded="false" data-target="#submenu-1-2" aria-controls="submenu-1-2"><i class="fab fa-fw fa-wpforms"></i>Reports</a>
+                        <div id="submenu-1-2" class="collapse submenu" style="">
+                            <ul class="nav flex-column">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{route('glitches.get_report')}}">General Report</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{route('glitches.generateDayEndReport')}}">Glitch by Guest Name</a>
+                                </li>
+                            </ul>
+                        </div>
                     </li>
                     @can('manage_users')    
                     <li class="nav-item ">

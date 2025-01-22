@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 //use Illuminate\Support\Facades\Auth;
 use Auth;
 use App\Models\{
@@ -65,6 +66,8 @@ class GlitchesController extends Controller
         $guest = Guest::where('room_No', $validated['room_no'])->first();
         if($guest){
             $guestName = $guest->guest_name;
+            $guestArrDate = $guest->arrival_date;
+            $guestDepDate = $guest->departure_date;
         }else{
             $guestName = "TBA";
         }
@@ -72,6 +75,8 @@ class GlitchesController extends Controller
             'user_id' => Auth::id(),
             'room_no' => $validated['room_no'],
             'guest_name' => $guestName,
+            'arrival_date' => $guestArrDate,
+            'departure_date' => $guestDepDate,
             'category' => $validated['category'],
             'title' => $validated['title'],
             'description' => $validated['description'],
@@ -150,6 +155,31 @@ class GlitchesController extends Controller
 
         // Update the status
         $glitch->status = $request->input('status');
+        $glitch->update(['updated_by' => Auth::id()]);
+        $glitch->save();
+
+        // Redirect back with a success message
+        return redirect()->back()->with('success', 'Glitch status updated successfully.');
+    }
+
+    public function update_follow_up_by(Request $request, $id)
+    {
+        if(!Auth::user()->can('modify_glitch')) {
+            return redirect()->route('home')->with('error', 'You are not authorized to modify glitches.');
+        }
+        // Validate the request
+        $request->validate([
+            'follow_up_by' => 'required|string'
+        ]);
+
+        // Find the glitch by ID
+        $glitch = Glitch::findOrFail($id);
+
+        // Check if `follow_up_by` is being updated
+        if ($glitch->follow_up_by !== $request->follow_up_by) {
+            $glitch->follow_up_by = $request->follow_up_by;
+            $glitch->follow_up_at = now(); // Update `follow_up_at` to the current timestamp
+        }
         $glitch->save();
 
         // Redirect back with a success message
@@ -218,4 +248,36 @@ class GlitchesController extends Controller
         $glitches = $query->with('user')->get();
         return view('Glitch.report_glitch', compact('glitches', 'validated'));
     }
+
+    public function generateDayEndReport()
+    {
+        // Define the start and end dates
+        $endDate = now();
+        $startDate = $endDate->copy()->subDays(15);
+    
+        // Query the glitches grouped by guest name
+        $reportData = DB::table('glitches')
+            ->select('room_No', 'guest_name', 'arrival_date', 'departure_date', 'title as glitch_title', 'created_at')
+            ->whereBetween('created_at', [$startDate, $endDate])
+            ->orderBy('guest_name')
+            ->orderBy('created_at')
+            ->get();
+    
+        // Group the glitches by guest and count them manually
+        $groupedData = $reportData->groupBy('guest_name')->map(function ($guestData) {
+            return [
+                'glitches' => $guestData->sortByDesc('created_at'),
+                'count' => $guestData->count()
+            ];
+        });
+    
+        // Sort by guest with most glitches
+        $sortedData = $groupedData->sortByDesc(function ($guestData) {
+            return $guestData['count'];
+        });
+    
+        // Pass the report data to the view
+        return view('Glitch.day_end_report', compact('sortedData', 'startDate', 'endDate'));
+    }
+    
 }

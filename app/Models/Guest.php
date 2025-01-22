@@ -10,6 +10,8 @@ class Guest extends Model
     use HasFactory;
     protected $fillable = [
         'room_No',
-        'guest_name'
+        'guest_name',
+        'arrival_date',
+        'departure_date'
     ];
 }

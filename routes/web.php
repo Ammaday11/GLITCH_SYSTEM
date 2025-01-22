@@ -5,6 +5,9 @@ use App\Http\Controllers\{
     GlitchesController,
     UsersController,
     GuestController,
+    IMAPTestController,
+    RoomController,
+    
 };
 /*
 |--------------------------------------------------------------------------
@@ -30,14 +33,18 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/glitches/edit-glitch/{id}', [App\Http\Controllers\GlitchesController::class, 'edit'])->name('glitches.edit');
     Route::put('/glitches/update-glitch/{id}', [App\Http\Controllers\GlitchesController::class, 'update'])->name('glitches.update');
     Route::patch('/glitches/update-status-glitch/{id}', [App\Http\Controllers\GlitchesController::class, 'update_status'])->name('glitches.update_status');
+    Route::patch('/glitches/update-follow_up_by/{id}', [App\Http\Controllers\GlitchesController::class, 'update_follow_up_by'])->name('glitches.follow_up_by');
     Route::get('/glitches/delete-glitch/{id}', [App\Http\Controllers\GlitchesController::class, 'delete'])->name('glitches.delete');
     Route::post('/glitches/destroy-glitch/{id}', [App\Http\Controllers\GlitchesController::class, 'destroy'])->name('glitches.destroy');
     Route::get('/glitches/reports', [App\Http\Controllers\GlitchesController::class, 'report'])->name('glitches.report');
     Route::get('/glitches/get_reports', [App\Http\Controllers\GlitchesController::class, 'get_report'])->name('glitches.get_report');
-
+    Route::get('/glitches/get_DayEndReport', [App\Http\Controllers\GlitchesController::class, 'generateDayEndReport'])->name('glitches.generateDayEndReport');
+    
     
     Route::get('/rooms/upload-guest', [App\Http\Controllers\GuestController::class, 'upload'])->name('guest.upload');
     Route::post('/rooms/update-guest', [App\Http\Controllers\GuestController::class, 'update'])->name('guest.update');
+    Route::post('/rooms/update-guest', [App\Http\Controllers\GuestController::class, 'updateGuestList'])->name('update-guest-list');
+    Route::get('/update-guest-names', [RoomController::class, 'fetchEmailDetails'])->name('update-guest-names');
 
     Route::get('/user/create', [App\Http\Controllers\UsersController::class, 'create'])->name('user.create');
     Route::get('/user/list', [App\Http\Controllers\UsersController::class, 'index'])->name('user.list');
@@ -51,7 +58,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/logout', [App\Http\Controllers\UsersController::class, 'logout'])->name('user.logout');
 
 });
-
 
 
 

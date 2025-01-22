@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('room_No')->unique();
             $table->string('guest_name')->nullable();
+            $table->string('arrival_date')->nullable();
+            $table->string('departure_date')->nullable();
             $table->timestamps();
         });
     }
