@@ -5,6 +5,8 @@
 <link rel="stylesheet" href="{{asset('assets/vendor/datatables/css/buttons.bootstrap4.css')}}">
 <link rel="stylesheet" href="{{asset('assets/vendor/datatables/css/select.bootstrap4.css')}}">
 <link rel="stylesheet" href="{{asset('assets/vendor/datatables/css/fixedHeader.bootstrap4.css')}}">
+
+
 @endsection
 
 @section('content')
@@ -50,13 +52,16 @@
                                                 <thead>
                                                     <tr>
                                                         <th>ID</th>
-                                                        <th>Room No</th>
+                                                        <th>Room</th>
                                                         <th>Guest Name</th>
                                                         <th>Category</th>
+                                                        <th>Glitch Type</th>
                                                         <th>Title</th>
                                                         <th>Received By</th>
                                                         <th>Received At</th>
                                                         <th>Update Status</th>
+                                                        <th>Follow-up By</th>
+                                                        <th>Satisfaction</th>
                                                         <th>Actions</th>
                                                     </tr>
                                                 </thead>
@@ -67,6 +72,7 @@
                                                             <td>{{ $glitch->room_no }}</td>
                                                             <td>{{ $glitch->guest_name }}</td>
                                                             <td>{{ $glitch->category }}</td>
+                                                            <td>{{ $glitch->glitch_type }}</td>
                                                             <td>{{ $glitch->title }}</td>
                                                             <td>{{ $glitch->user->name }}</td>
                                                             <td>{{ $glitch->created_at->format('H:i') }}</td>
@@ -85,11 +91,47 @@
                                                             </form>
                                                             </td>
                                                             <td>
-                                                                <a href="{{route('glitches.show', ['id' => $glitch->id])}}" class="btn btn-info btn-sm m-r-10 fas fa-eye"></a>
-                                                                <a href="{{route('glitches.edit', ['id' => $glitch->id])}}" class="btn btn-brand btn-sm m-r-10 fas fa-edit"></a>
-                                                                @can('delete_glitch')
-                                                                <a href="{{route('glitches.delete', ['id' => $glitch->id])}}" class="btn  btn-danger btn-sm m-r-10 fas fa-trash"></a>
-                                                                @endcan('delete_glitch')
+                                                            <form id="followUpForm" action="{{ route('glitches.follow_up_by', ['id' => $glitch->id]) }}', ['id' => $glitch->id]) }}" method="POST">
+                                                                @csrf
+                                                                @method('PATCH')
+                                                                <select id="followUpDropDown" name="follow_up_by" class="form-control custom-select" onchange="this.form.submit()">
+                                                                <!-- <select name="status" class="form-control custom-select" onchange="updateStatus(this)"> -->
+                                                                    <option value="" {{ $glitch->follow_up_by === '' ? 'selected' : '' }}>Select</option>
+                                                                    @foreach($staffs as $staff)
+                                                                        <option value="{{ $staff }}" {{ $glitch->follow_up_by === $staff ? 'selected' : '' }}>
+                                                                            {{ $staff }}
+                                                                        </option>
+                                                                    @endforeach
+                                                                </select>
+                                                            </form>
+                                                            </td>
+                                                        <td>
+                                                        <form id="satisfaction" action="{{ route('glitches.satisfaction', ['id' => $glitch->id]) }}'}}" method="POST">
+                                                            @csrf
+                                                            @method('PATCH')
+                                                            <select id="satisfactionDropDown" name="guest_satisfaction" class="form-control custom-select" onchange="this.form.submit()">
+                                                                <option value="" {{ $glitch->guest_satisfaction === 'Undefined' ? 'selected' : '' }}>Select</option>
+                                                                @foreach($satisfactions as $satisfaction)
+                                                                    <option value="{{ $satisfaction }}" {{ $glitch->guest_satisfaction === $satisfaction ? 'selected' : '' }}>
+                                                                        {{ $satisfaction }}
+                                                                    </option>
+                                                                @endforeach
+                                                            </select>
+                                                        </form>
+                                                        </td>
+                                                            <td>
+                                                                <div class="input-group">
+                                                                    <div class="input-group-append be-addon">
+                                                                        <button type="button" data-toggle="dropdown" class="btn btn-dark dropdown-toggle">Actions</button>
+                                                                        <div class="dropdown-menu">
+                                                                            <a href="{{route('glitches.show', ['id' => $glitch->id])}}" class="dropdown-item">View</a>
+                                                                            <a href="{{route('glitches.edit', ['id' => $glitch->id])}}" class="dropdown-item">Edit</a>
+                                                                            @can('delete_glitch')
+                                                                            <a href="{{route('glitches.delete', ['id' => $glitch->id])}}" class="dropdown-item">Delete</a>
+                                                                            @endcan('delete_glitch')
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
                                                             </td>
                                                         </tr>
                                                     @endforeach

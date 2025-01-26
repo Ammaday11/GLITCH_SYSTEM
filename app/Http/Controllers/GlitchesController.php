@@ -11,6 +11,9 @@ use App\Models\{
     User,
     Glitch,
     Guest,
+    Staff,
+    GlitchType,
+    GuestSatisfaction,
 };
 
 
@@ -25,7 +28,9 @@ class GlitchesController extends Controller
             return redirect()->route('home')->with('error', 'You are not authorized to view this page.');
         }
         $glitches = Glitch::whereDate('created_at', now()->toDateString())->with('user')->get();
-        return view('home', compact('glitches'));
+        $staffs = Staff::pluck('name'); // Fetch user names
+        $satisfactions = GuestSatisfaction::pluck('guest_satisfaction');
+        return view('home', compact('glitches', 'staffs', 'satisfactions'));
     }
 
     public function all_glitches()
@@ -34,7 +39,9 @@ class GlitchesController extends Controller
             return redirect()->route('home')->with('error', 'You are not authorized to view this page.');
         }
         $glitches = $glitches = Glitch::with('user')->get();
-        return view('Glitch.list_glitch', compact('glitches'));
+        $staffs = Staff::pluck('name'); // Fetch user names
+        $satisfactions = GuestSatisfaction::pluck('guest_satisfaction');
+        return view('Glitch.list_glitch', compact('glitches', 'staffs', 'satisfactions'));
     }
 
     /**
@@ -45,7 +52,8 @@ class GlitchesController extends Controller
         if(!Auth::user()->can('create_glitch')) {
             return redirect()->route('home')->with('error', 'You are not authorized to create new glitches.');
         }
-        return view('Glitch.create_glitch');
+        $glitch_types = GlitchType::pluck('type'); // Fetch user names
+        return view('Glitch.create_glitch', compact('glitch_types'));
     }
 
     /**
@@ -58,7 +66,8 @@ class GlitchesController extends Controller
         }
         $validated = $request->validate([
             'room_no' => 'required|string',
-            'category' => 'required|in:general request,complaint,issue',
+            'category' => 'required|in:General request,Complaint,Issue',
+            'glitch_type' => 'required|string',
             'title' => 'required|string',
             'description' => 'nullable|string',
         ]);
@@ -71,6 +80,8 @@ class GlitchesController extends Controller
         }else{
             $guestName = "TBA";
         }
+
+        
         $newGlitch = Glitch::create([
             'user_id' => Auth::id(),
             'room_no' => $validated['room_no'],
@@ -78,12 +89,12 @@ class GlitchesController extends Controller
             'arrival_date' => $guestArrDate,
             'departure_date' => $guestDepDate,
             'category' => $validated['category'],
+            'glitch_type' => $validated['glitch_type'],
             'title' => $validated['title'],
             'description' => $validated['description'],
             'pending' => 'pending',
             'updated_by' => Auth::id(),
         ]);
-
 
         return redirect()->route('home')->with('success', 'Glitch created successfully.');
     }
@@ -127,10 +138,11 @@ class GlitchesController extends Controller
         $validated = $request->validate([
             'room_no' => 'required|string',
             'guest_name' => 'string',
-            'category' => 'required|in:general request,complaint,issue',
+            'category' => 'required|in:General request,Complaint,Issue',
             'title' => 'required|string',
-            'description' => 'required|string',
-            'status' => 'required|in:pending,ongoing,resolved,follow-up pending,suspended,deleted',
+            'description' => 'string|nullable',
+            'comments' => 'string|nullable',
+            'status' => 'required|in:Pending,Ongoing,Resolved,Follow-up Pending,Suspended',
         ]);
 
         $glitch = Glitch::find($id);
@@ -142,6 +154,7 @@ class GlitchesController extends Controller
 
     public function update_status(Request $request, $id)
     {
+
         if(!Auth::user()->can('modify_glitch')) {
             return redirect()->route('home')->with('error', 'You are not authorized to modify glitches.');
         }
@@ -164,9 +177,9 @@ class GlitchesController extends Controller
 
     public function update_follow_up_by(Request $request, $id)
     {
-        if(!Auth::user()->can('modify_glitch')) {
-            return redirect()->route('home')->with('error', 'You are not authorized to modify glitches.');
-        }
+        // if(!Auth::user()->can('modify_glitch')) {
+        //     return redirect()->route('home')->with('error', 'You are not authorized to modify glitches.');
+        // }
         // Validate the request
         $request->validate([
             'follow_up_by' => 'required|string'
@@ -174,6 +187,7 @@ class GlitchesController extends Controller
 
         // Find the glitch by ID
         $glitch = Glitch::findOrFail($id);
+        
 
         // Check if `follow_up_by` is being updated
         if ($glitch->follow_up_by !== $request->follow_up_by) {
@@ -183,7 +197,26 @@ class GlitchesController extends Controller
         $glitch->save();
 
         // Redirect back with a success message
-        return redirect()->back()->with('success', 'Glitch status updated successfully.');
+        return redirect()->back();
+    }
+
+    public function update_satisfaction(Request $request, $id)
+    {
+        $request->validate([
+            'guest_satisfaction' => 'required|string'
+        ]);
+
+        // Find the glitch by ID
+        $glitch = Glitch::findOrFail($id);
+        
+
+        // Check if `follow_up_by` is being updated
+        if ($glitch->guest_satisfaction !== $request->guest_satisfaction) {
+            $glitch->guest_satisfaction = $request->guest_satisfaction;
+        }
+        $glitch->save();
+        
+        return redirect()->back();
     }
 
     public function delete(string $id)
@@ -208,6 +241,10 @@ class GlitchesController extends Controller
         $glitch->delete();
         return redirect()->route('home')->with('success', 'Glitch deleted successfully.');
     }
+
+//========================================================================= REPORTS =============================================================================================================
+
+
     public function get_report()
     {
         //$glitches = Glitch::with('user')->get();

@@ -79,13 +79,16 @@
                                                         <th>Arrival Date</th>
                                                         <th>Departure Date</th>
                                                         <th>Category</th>
+                                                        <th>Glitch Type</th>
                                                         <th>Title</th>
                                                         <th>Description</th>
+                                                        <th>Comments</th>
                                                         <th>Status</th>
                                                         <th>Received By</th>
                                                         <th>Received At</th>
                                                         <th>Updated By</th>
                                                         <th>Updated At</th>
+                                                        <th>Guest Satisfaction</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -96,13 +99,16 @@
                                                         <td>{{ $glitch->arrival_date }}</td>
                                                         <td>{{ $glitch->departure_date }}</td>
                                                         <td>{{ $glitch->category }}</td>
+                                                        <td>{{ $glitch->glitch_type }}</td>
                                                         <td>{{ $glitch->title }}</td>
                                                         <td>{{ $glitch->description }}</td>
+                                                        <td>{{ $glitch->comments }}</td>
                                                         <td>{{ $glitch->status }}</td>
                                                         <td>{{ $glitch->user->name }}</td>
                                                         <td>{{ $glitch->created_at->format('d-m-Y @ H:i') }}</td>
                                                         <td>{{ $glitch->updatedBy->name }}</td>
                                                         <td>{{ $glitch->updated_at->format('d-m-Y @ H:i') }}</td>
+                                                        <td>{{ $glitch->guest_satisfaction }}</td>
                                                     </tr>
                                                 @empty
                                                     <!-- <tr>

@@ -7,6 +7,9 @@ use App\Http\Controllers\{
     GuestController,
     IMAPTestController,
     RoomController,
+    StaffController,
+    GlitchtypeController,
+    GuestSatisfactionController,
     
 };
 /*
@@ -34,6 +37,7 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/glitches/update-glitch/{id}', [App\Http\Controllers\GlitchesController::class, 'update'])->name('glitches.update');
     Route::patch('/glitches/update-status-glitch/{id}', [App\Http\Controllers\GlitchesController::class, 'update_status'])->name('glitches.update_status');
     Route::patch('/glitches/update-follow_up_by/{id}', [App\Http\Controllers\GlitchesController::class, 'update_follow_up_by'])->name('glitches.follow_up_by');
+    Route::patch('/glitches/update_satisfaction/{id}', [App\Http\Controllers\GlitchesController::class, 'update_satisfaction'])->name('glitches.satisfaction');
     Route::get('/glitches/delete-glitch/{id}', [App\Http\Controllers\GlitchesController::class, 'delete'])->name('glitches.delete');
     Route::post('/glitches/destroy-glitch/{id}', [App\Http\Controllers\GlitchesController::class, 'destroy'])->name('glitches.destroy');
     Route::get('/glitches/reports', [App\Http\Controllers\GlitchesController::class, 'report'])->name('glitches.report');
@@ -56,6 +60,27 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/user/delete-glitch/{id}', [App\Http\Controllers\UsersController::class, 'delete'])->name('user.delete');
     Route::post('/user/destroy-glitch/{id}', [App\Http\Controllers\UsersController::class, 'destroy'])->name('user.destroy');
     Route::get('/logout', [App\Http\Controllers\UsersController::class, 'logout'])->name('user.logout');
+
+    
+    Route::get('/staff/index', [App\Http\Controllers\StaffController::class, 'index'])->name('staff.index');
+    Route::get('/staff/create', [App\Http\Controllers\StaffController::class, 'create'])->name('staff.create');
+    Route::post('/staff/store', [App\Http\Controllers\StaffController::class, 'store'])->name('staff.store');
+    Route::get('/staff/edit/{id}', [App\Http\Controllers\StaffController::class, 'edit'])->name('staff.edit');
+    Route::put('/staff/update/{id}', [App\Http\Controllers\StaffController::class, 'update'])->name('staff.update');
+    Route::get('/staff/delete/{id}', [App\Http\Controllers\StaffController::class, 'delete'])->name('staff.delete');
+    Route::post('/staff/destroy/{id}', [App\Http\Controllers\StaffController::class, 'destroy'])->name('staff.destroy');
+
+    Route::get('/glitch_type/index', [App\Http\Controllers\GlitchtypeController::class, 'index'])->name('glitch_type.index');
+    Route::get('/glitch_type/create', [App\Http\Controllers\GlitchtypeController::class, 'create'])->name('glitch_type.create');
+    Route::post('/glitch_type/store', [App\Http\Controllers\GlitchtypeController::class, 'store'])->name('glitch_type.store');
+    Route::get('/glitch_type/delete/{id}', [App\Http\Controllers\GlitchtypeController::class, 'delete'])->name('glitch_type.delete');
+    Route::post('/glitch_type/destroy/{id}', [App\Http\Controllers\GlitchtypeController::class, 'destroy'])->name('glitch_type.destroy');
+    
+    Route::get('/guest_satisfaction/index', [App\Http\Controllers\GuestSatisfactionController::class, 'index'])->name('guest_satisfaction.index');
+    Route::get('/guest_satisfaction/create', [App\Http\Controllers\GuestSatisfactionController::class, 'create'])->name('guest_satisfaction.create');
+    Route::post('/guest_satisfaction/store', [App\Http\Controllers\GuestSatisfactionController::class, 'store'])->name('guest_satisfaction.store');
+    Route::get('/guest_satisfaction/delete/{id}', [App\Http\Controllers\GuestSatisfactionController::class, 'delete'])->name('guest_satisfaction.delete');
+    Route::post('/guest_satisfaction/destroy/{id}', [App\Http\Controllers\GuestSatisfactionController::class, 'destroy'])->name('guest_satisfaction.destroy');
 
 });
 

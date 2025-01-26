@@ -12,6 +12,19 @@
         <link rel="stylesheet" href= "{{asset('assets/vendor/fonts/circular-std/style.css')}}">
         <link rel="stylesheet" href= "{{asset('assets/libs/css/style.css')}}">
         <link rel="stylesheet" href= "{{asset('assets/vendor/fonts/fontawesome/css/fontawesome-all.css')}}">
+        <style>
+            .custom-alert {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1050; /* Ensure it appears above other content */
+            min-width: 400px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            }
+            .custom-alert:not(:first-of-type) {
+                margin-bottom: 10px;
+            }
+        </style>
         @yield('style')
     </head> 
 

@@ -94,15 +94,11 @@ class RoomController extends Controller
                         
                         // Find the first valid guest name that does not contain 'yrs)' or 'YRS)'
                         foreach ($guestData['guestNames'] as $name) {
-                            if (
-                                !str_contains($name, 'yrs)') && 
-                                !str_contains($name, 'YRS)') && 
-                                !str_contains($name, 'yr)') && 
-                                !str_contains($name, 'YR)')
-                            ) {
+                            if (!preg_match('/\d/', $name) ) {
+                                $cleanName = str_replace(',', '', $name); // Remove commas from the name
                                 $finalGuestName = count($guestData['guestNames']) > 1
-                                    ? $name . ' & Family'
-                                    : $name;
+                                    ? $cleanName . ' & Family'
+                                    : $cleanName;
                                 break; // Stop once a valid name is found
                             }
                         }

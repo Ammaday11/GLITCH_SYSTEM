@@ -68,10 +68,17 @@
                                                         @endforeach
                                                         </td>
                                                         <td>
-                                                            <a href="#" class="btn btn-info btn-sm m-r-10 fas fa-eye"></a>
-                                                            <a href="{{route('user.edit', ['id' => $user->id])}}" class="btn btn-brand btn-sm m-r-10 fas fa-edit"></a>
-                                                            <a href="{{route('user.delete', ['id' => $user->id])}}" class="btn btn-danger btn-sm m-r-10 fas fa-trash"></a>
-                                                            
+                                                            <div class="input-group">
+                                                                <div class="input-group-append be-addon">
+                                                                    <button type="button" data-toggle="dropdown" class="btn btn-dark dropdown-toggle">Actions</button>
+                                                                    <div class="dropdown-menu">
+                                                                        <a href="{{route('user.edit', ['id' => $user->id])}}" class="dropdown-item">Edit</a>
+                                                                        @can('manage_users')
+                                                                        <a href="{{route('user.delete', ['id' => $user->id])}}" class="dropdown-item">Delete</a>
+                                                                        @endcan('manage_users')
+                                                                    </div>
+                                                                </div>
+                                                            </div>
                                                         </td>
                                                     </tr>
                                                 @endforeach

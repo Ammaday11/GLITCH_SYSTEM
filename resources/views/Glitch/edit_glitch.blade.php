@@ -59,9 +59,9 @@
                                         <div class="form-group">
                                             <label for="category">Category</label>
                                             <select name="category" id="category" class="form-control" required>
-                                                <option value="general request" {{ $glitch->category == 'general request' ? 'selected' : '' }}>General Request</option>
-                                                <option value="complaint" {{ $glitch->category == 'complaint' ? 'selected' : '' }}>Complaint</option>
-                                                <option value="issue" {{ $glitch->category == 'issue' ? 'selected' : '' }}>Issue</option>
+                                                <option value="General request" {{ $glitch->category == 'General request' ? 'selected' : '' }}>General request</option>
+                                                <option value="Complaint" {{ $glitch->category == 'Complaint' ? 'selected' : '' }}>Complaint</option>
+                                                <option value="Issue" {{ $glitch->category == 'Issue' ? 'selected' : '' }}>Issue</option>
                                             </select>
                                         </div>
 
@@ -72,17 +72,22 @@
 
                                         <div class="form-group">
                                             <label for="description">Description</label>
-                                            <textarea name="description" id="description" class="form-control" rows="4" required>{{ $glitch->description }}</textarea>
+                                            <textarea name="description" id="description" class="form-control" rows="4">{{ $glitch->description }}</textarea>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="comments">Comments</label>
+                                            <textarea name="comments" id="comments" class="form-control" rows="2" >{{ $glitch->comments }}</textarea>
                                         </div>
 
                                         <div class="form-group">
                                             <label for="status">Status</label>
                                             <select name="status" id="status" class="form-control" required>
-                                                <option value="pending" {{ $glitch->status == 'Pending' ? 'selected' : '' }}>Pending</option>
-                                                <option value="ongoing" {{ $glitch->status == 'Ongoing' ? 'selected' : '' }}>Ongoing</option>
-                                                <option value="resolved" {{ $glitch->status == 'Resolved' ? 'selected' : '' }}>Resolved</option>
-                                                <option value="follow-up pending" {{ $glitch->status == 'Follow-up Pending' ? 'selected' : '' }}>Follow-Up Pending</option>
-                                                <option value="suspended" {{ $glitch->status == 'Suspended' ? 'selected' : '' }}>Suspended</option>
+                                                <option value="Pending" {{ $glitch->status == 'Pending' ? 'selected' : '' }}>Pending</option>
+                                                <option value="Ongoing" {{ $glitch->status == 'Ongoing' ? 'selected' : '' }}>Ongoing</option>
+                                                <option value="Resolved" {{ $glitch->status == 'Resolved' ? 'selected' : '' }}>Resolved</option>
+                                                <option value="Follow-up Pending" {{ $glitch->status == 'Follow-up Pending' ? 'selected' : '' }}>Follow-Up Pending</option>
+                                                <option value="Suspended" {{ $glitch->status == 'Suspended' ? 'selected' : '' }}>Suspended</option>
                                             </select>
                                         </div>
                                         

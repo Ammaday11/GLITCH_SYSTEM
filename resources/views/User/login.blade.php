@@ -24,6 +24,11 @@
         align-items: center;
         padding-top: 40px;
         padding-bottom: 40px;
+        background-image: url('{{asset('images/hotel.jpg')}}'); /* Replace with your image URL */
+        background-size: cover; /* Ensures the image covers the entire viewport */
+        background-position: center; /* Centers the image */
+        background-repeat: no-repeat; /* Prevents tiling */
+        background-attachment: fixed; /* Ensures the image stays fixed while scrolling */
     }
     </style>
 </head>
@@ -50,7 +55,7 @@
                         <input class="form-control form-control-lg" name="password" id="password" type="password" placeholder="Password">
                     </div>
                     
-                    <button type="submit" class="btn btn-primary btn-lg btn-block">Sign in</button>
+                    <button type="submit" class="btn btn-dark btn-lg btn-block">Sign in</button>
                 </form>
             </div>
             <div class="card-footer bg-white p-0  ">

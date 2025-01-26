@@ -56,10 +56,23 @@
                                                 <label for="category">Category</label>
                                                 <select name="category" id="category" class="form-control" required>
                                                     <option value="">Select Category</option>
-                                                    <option value="general request">General Request</option>
-                                                    <option value="complaint">Complaint</option>
-                                                    <option value="issue">Issue</option>
+                                                    <option value="General request">General Request</option>
+                                                    <option value="Complaint">Complaint</option>
+                                                    <option value="Issue">Issue</option>
                                                 </select>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="category">Glitch Type</label>
+                                                <div class="d-flex align-items-center">
+                                                    <select name="glitch_type" id="glitch_type" class="form-control" required>
+                                                        <option value="">Select</option>
+                                                        @foreach($glitch_types as $glitch_type)
+                                                            <option value="{{ $glitch_type }}" >{{ $glitch_type }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                    <a href="{{route('glitch_type.create')}}" class="btn btn-info ml-2">New</a>
+                                                </div>
                                             </div>
 
                                             <div class="form-group">
@@ -118,7 +131,22 @@
         <!-- ============================================================== -->
     </div>
     @section('script')
-        
+    <script>
+        // Wait for the DOM to be fully loaded
+        document.addEventListener("DOMContentLoaded", function () {
+                // Select all alerts
+                const alerts = document.querySelectorAll('.alert');
+
+                // Set a timeout to fade out and remove the alert after 5 seconds
+                alerts.forEach(alert => {
+                    setTimeout(() => {
+                        alert.classList.remove('show'); // Remove the 'show' class
+                        alert.classList.add('fade');   // Optionally add 'fade' for smooth transition
+                        setTimeout(() => alert.remove(), 300); // Remove alert after transition (0.3s)
+                    }, 3000); // 3 seconds
+                });
+            });
+    </script>
     @endsection
 
 </body>

@@ -19,12 +19,15 @@ return new class extends Migration
             $table->string('arrival_date')->nullable();
             $table->string('departure_date')->nullable();
             $table->enum('category', ['General request', 'Complaint', 'Issue']);
+            $table->string('glitch_type')->default('Undefined');// Foreign key for the glitch_type
             $table->string('title');
             $table->text('description')->nullable();
+            $table->text('comments')->nullable();
             $table->enum('status', ['Pending', 'Ongoing', 'Resolved', 'Follow-up Pending', 'Suspended'])->default('Pending');
             $table->unsignedBigInteger('updated_by')->nullable(); // Last updated by
             $table->string('follow_up_by')->nullable();
             $table->timestamp('follow_up_at')->nullable();
+            $table->string('guest_satisfaction')->default('Undefined');
             $table->timestamps();
         });
     }

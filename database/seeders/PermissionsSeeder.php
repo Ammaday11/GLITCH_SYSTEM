@@ -29,7 +29,7 @@ class PermissionsSeeder extends Seeder
             }
 
             if($role->name == 'Manager') {
-                $role->syncPermissions(Permission::whereNotIn('name', ['view_users', 'manage_users', 'view_roles', 'manage_roles'])->get());
+                $role->syncPermissions(Permission::whereNotIn('name', ['view_users', 'manage_users', 'view_roles', 'manage_roles','manage_glitch_types'])->get());
             }
 
             if( $role->name == 'Staff' ) {
@@ -41,6 +41,8 @@ class PermissionsSeeder extends Seeder
                     'view_glitch_list',
                     'update_guestlist',
                     'change_password',
+                    'create_glitch_types',
+                    'create_guest_satisfactions'
                 ]);
             }
 
@@ -79,7 +81,12 @@ class PermissionsSeeder extends Seeder
         'suspend_glitch',
         'view_glitch',
         'view_glitch_list',
-        'delete_glitch'
+        'delete_glitch',
+        'manage_staff',
+        'manage_glitch_types',
+        'create_glitch_types',
+        'manage_guest_satisfactions',
+        'create_guest_satisfactions'
     ];
 
     protected $user_roles = [
@@ -92,7 +99,7 @@ class PermissionsSeeder extends Seeder
         [
             'bwlmNo' => 'BWLM0155',
             'roles' => [
-                'Staff'
+                'Manager'
             ]
         ]
     ];

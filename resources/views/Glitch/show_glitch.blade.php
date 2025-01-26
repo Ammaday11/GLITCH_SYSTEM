@@ -63,6 +63,11 @@
                                         </div>
 
                                         <div class="form-group">
+                                            <label for="glitch_type">Glitch Type</label>
+                                            <input type="text" name="glitch_type" id="glitch_type" class="form-control" value="{{ $glitch->glitch_type }}" required readonly>
+                                        </div>
+
+                                        <div class="form-group">
                                             <label for="title">Title</label>
                                             <input type="text" name="title" id="title" class="form-control" value="{{ $glitch->title }}" required readonly>
                                         </div>
@@ -71,6 +76,13 @@
                                             <label for="description">Description</label>
                                             <textarea name="description" id="description" class="form-control" rows="4" required readonly>{{ $glitch->description }}</textarea>
                                         </div>
+
+                                        @if(!is_null($glitch->comments))
+                                        <div class="form-group">
+                                            <label for="comments">Comments</label>
+                                            <textarea name="comments" id="comments" class="form-control" rows="2" required readonly>{{ $glitch->comments }}</textarea>
+                                        </div>
+                                        @endif
 
                                         <div class="form-group">
                                             <label for="status">Status</label>
@@ -90,6 +102,11 @@
                                         <div class="form-group">
                                             <label for="follow_up">Follow-up By</label>
                                             <input type="text" name="follow_up" id="follow_up" class="form-control" value="{{ $glitch->follow_up_by ? $glitch->follow_up_by . ' @ ' . $glitch->follow_up_at : '' }}" required readonly>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="guest_satisfaction">Guest Satisfaction</label>
+                                            <input type="text" name="guest_satisfaction" id="guest_satisfaction" class="form-control" value="{{ $glitch->guest_satisfaction ? $glitch->guest_satisfaction  : '' }}" required readonly>
                                         </div>
                                         
                                         <div class="row">

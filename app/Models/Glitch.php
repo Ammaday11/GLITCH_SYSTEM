@@ -21,14 +21,17 @@ class Glitch extends Model
         'room_no',
         'guest_name',
         'category',
+        'glitch_type',
         'title',
         'description',
+        'comments',
         'status',
         'updated_by',
         'arrival_date',
         'departure_date',
         'follow_up_by',
         'follow_up_at',
+        'guest_satisfaction'
     ];
 
     public function user(){
