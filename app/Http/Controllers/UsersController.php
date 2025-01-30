@@ -19,7 +19,7 @@ class UsersController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'bwlmNo' => 'required|string|max:255|unique:users,bwlmNo',
+            'username' => 'required|string|max:255|unique:users,username',
             'name' => ['required', 'string', 'max:255'],
             // 'password' => ['required', 'string', 'min:8', 'confirmed'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
@@ -32,7 +32,7 @@ class UsersController extends Controller
             return redirect()->route('home')->with('error', 'You are not authorized to manage users.');
         }
 
-        $users = User::orderBy('bwlmNo')
+        $users = User::orderBy('username')
                     ->with('roles')
                     ->get();
         return view('User.list_user', compact('users'));
@@ -49,7 +49,7 @@ class UsersController extends Controller
             return redirect()->route('home')->with('error', 'You are not authorized to create users.');
         }
         $validated = $request->validate([
-            'bwlmNo' => 'required|string|unique:users,bwlmNo',
+            'username' => 'required|string|unique:users,username',
             'name' => 'required|string',
             'password' => 'required|string|min:8',
             'roles' => 'required|array|min:1',
@@ -57,7 +57,7 @@ class UsersController extends Controller
 
         
         $user = User::create([
-            'bwlmNo' => $validated['bwlmNo'],
+            'username' => $validated['username'],
             'name' => $validated['name'],
             'password' => Hash::make($validated['password']),
         ]);
@@ -94,7 +94,7 @@ class UsersController extends Controller
         
         
         $validated = $request->validate([
-            'bwlmNo' => 'required|string|unique:users,bwlmNo,' . $id,
+            'username' => 'required|string|unique:users,username,' . $id,
             'name' => 'required|string',
             'password' => 'nullable|string|min:8',
             'roles' => 'required|array|min:1',
@@ -107,7 +107,7 @@ class UsersController extends Controller
         } else {
             unset($validated['password']); // Remove password from the validated data
         }
-        unset($validated['bwlmNo']);
+        unset($validated['username']);
         //dd($validated);
         $user->update(array_merge($validated));
         $user->roles()->sync(array_map('intval', $request->roles));
@@ -155,15 +155,15 @@ class UsersController extends Controller
     public function login(Request $data)
     {
         $data->validate([
-            'bwlmNo' => 'required',
+            'username' => 'required',
             'password' => 'required',
             
         ]);
-        $credentials = $data->only('bwlmNo', 'password');
+        $credentials = $data->only('username', 'password');
         if(Auth::attempt($credentials)){
             return redirect()->route('home')->with('success', 'Please update the Guest List!');
         }
-        return redirect()->route('user.get_login')->with('error', 'BWLM NO or Passord is incorrect!');
+        return redirect()->route('user.get_login')->with('error', 'Username or Passord is incorrect!');
     }
 
     public function get_change_password()

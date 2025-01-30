@@ -49,10 +49,10 @@
                 <form action="{{ route('user.login') }}"  method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group">
-                        <input class="form-control form-control-lg" name="bwlmNo" id="bwlmNo" type="text" placeholder="BWLM Number" autocomplete="off">
+                        <input class="form-control form-control-lg" name="username" id="username" type="text" placeholder="username" autocomplete="off">
                     </div>
                     <div class="form-group">
-                        <input class="form-control form-control-lg" name="password" id="password" type="password" placeholder="Password">
+                        <input class="form-control form-control-lg" name="password" id="password" type="password" placeholder="password">
                     </div>
                     
                     <button type="submit" class="btn btn-dark btn-lg btn-block">Sign in</button>

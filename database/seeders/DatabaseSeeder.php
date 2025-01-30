@@ -62,12 +62,12 @@ class DatabaseSeeder extends Seeder
 
 
         User::create([
-            'bwlmNo' => 'BWLM0156',
+            'username' => 'BWLM0156',
             'name' => 'Ahmed Shafeeu',
             'password' => '$2y$10$gZvWXkf8C8J6e9rUad9To.Tj4dfVvHsiQF6UAm2YxWB/2f.RVpNZe'
         ]);
         User::create([
-            'bwlmNo' => 'BWLM0155',
+            'username' => 'BWLM0155',
             'name' => 'Adam Shakeel',
             'password' => '$2y$10$gZvWXkf8C8J6e9rUad9To.Tj4dfVvHsiQF6UAm2YxWB/2f.RVpNZe'
         ]);

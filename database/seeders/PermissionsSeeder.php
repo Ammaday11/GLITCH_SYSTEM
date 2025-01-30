@@ -49,7 +49,7 @@ class PermissionsSeeder extends Seeder
             
         }
         foreach($this->user_roles as $user_role) {
-            $user = User::where('bwlmNo', $user_role['bwlmNo'])->first();
+            $user = User::where('username', $user_role['username'])->first();
             if($user) {
                 $user->assignRole($user_role['roles']);
             }
@@ -91,13 +91,13 @@ class PermissionsSeeder extends Seeder
 
     protected $user_roles = [
         [
-            'bwlmNo' => 'BWLM0156',
+            'username' => 'BWLM0156',
             'roles' => [
                 'Administrator'
             ]
         ],
         [
-            'bwlmNo' => 'BWLM0155',
+            'username' => 'BWLM0155',
             'roles' => [
                 'Manager'
             ]

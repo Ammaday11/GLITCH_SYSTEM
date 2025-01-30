@@ -51,7 +51,7 @@
                 @csrf
                 <div class="card-body">
                     <div class="form-group">
-                        <input class="form-control form-control-lg" type="text" name="bwlmNo" required="" placeholder="bwlmNo" autocomplete="off">
+                        <input class="form-control form-control-lg" type="text" name="username" required="" placeholder="username" autocomplete="off">
                     </div>
                     <div class="form-group">
                         <input class="form-control form-control-lg" type="text" name="name" required="" placeholder="Name" autocomplete="off">

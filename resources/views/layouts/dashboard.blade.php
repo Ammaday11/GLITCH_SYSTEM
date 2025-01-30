@@ -18,7 +18,7 @@
             bottom: 20px;
             right: 20px;
             z-index: 1050; /* Ensure it appears above other content */
-            min-width: 400px;
+            min-width: 20%;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
             }
             .custom-alert:not(:first-of-type) {

@@ -48,7 +48,7 @@
                                         <table id="example" class="table table-striped table-bordered second" style="width:100%">
                                             <thead>
                                                 <tr>
-                                                    <th>BWLM No</th>
+                                                    <th>Username</th>
                                                     <th>Name</th>
                                                     <th>Role</th>
                                                     <th>Actions</th>
@@ -57,7 +57,7 @@
                                             <tbody>
                                                 @foreach ($users as $user)
                                                     <tr>
-                                                        <td>{{$user->bwlmNo}}</td>
+                                                        <td>{{$user->username}}</td>
                                                         <td>{{$user->name}}</td>
                                                         <td>
                                                         @foreach($user->roles as $role)

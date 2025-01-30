@@ -49,8 +49,8 @@
                                     @csrf
                                     @method('PUT')
                                     <div class="form-group">
-                                        <label for="bwlmNo">BWLM NO</label>
-                                        <input type="text" name="bwlmNo" id="bwlmNo" class="form-control" value="{{ $user->bwlmNo }}">
+                                        <label for="username">Username</label>
+                                        <input type="text" name="username" id="username" class="form-control" value="{{ $user->username }}">
                                     </div>
 
                                     <div class="form-group">

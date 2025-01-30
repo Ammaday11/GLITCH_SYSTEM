@@ -48,7 +48,7 @@
 
                                     @csrf
                                     <div class="form-group">
-                                        <input class="form-control form-control-lg" id="bwlmNo" name="bwlmNo" type="text" required="" placeholder="bwlmNo">
+                                        <input class="form-control form-control-lg" id="username" name="username" type="text" required="" placeholder="username">
                                     </div>
                                     <div class="form-group">
                                         <input class="form-control form-control-lg" id="name" name="name" type="text" required="" placeholder="Name">
